@@ -76,3 +76,18 @@ h1 {
   text-align: left;
   word-break: break-word;
 }
+
+.delete-btn {
+  border: none;
+  background-color: #d9534f;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c;
+}
