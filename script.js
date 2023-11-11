@@ -30,3 +30,9 @@ function addTask() {
 
   taskInput.value = '';
 }
+
+taskInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    addTask();
+  }
+});
