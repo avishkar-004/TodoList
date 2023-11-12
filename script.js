@@ -3,6 +3,9 @@ var addBtn = document.getElementById('addBtn');
 var taskList = document.getElementById('taskList');
 
 addBtn.addEventListener('click', addTask);
+taskInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') addTask();
+});
 
 function addTask() {
   var text = taskInput.value.trim();
@@ -16,6 +19,9 @@ function addTask() {
 
   var span = document.createElement('span');
   span.textContent = text;
+  span.addEventListener('click', function() {
+    li.classList.toggle('completed');
+  });
 
   var deleteBtn = document.createElement('button');
   deleteBtn.textContent = 'Delete';
@@ -27,12 +33,5 @@ function addTask() {
   li.appendChild(span);
   li.appendChild(deleteBtn);
   taskList.appendChild(li);
-
   taskInput.value = '';
 }
-
-taskInput.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    addTask();
-  }
-});
