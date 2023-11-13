@@ -91,3 +91,13 @@ h1 {
 .delete-btn:hover {
   background-color: #c9302c;
 }
+
+.task.completed span {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task.completed {
+  background-color: #e8f5e9;
+  border-color: #c8e6c9;
+}
