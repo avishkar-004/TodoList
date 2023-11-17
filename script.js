@@ -8,24 +8,29 @@ taskInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') addTask();
 });
 
+function updateCounts() {
+  var all = taskList.querySelectorAll('.task');
+  var done = taskList.querySelectorAll('.task.completed');
+  document.getElementById('totalCount').textContent = 'Total: ' + all.length;
+  document.getElementById('completedCount').textContent = 'Done: ' + done.length;
+  document.getElementById('pendingCount').textContent = 'Pending: ' + (all.length - done.length);
+}
+
 function saveTasks() {
   var data = [];
-  var items = taskList.querySelectorAll('.task');
-  items.forEach(function(item) {
+  taskList.querySelectorAll('.task').forEach(function(item) {
     data.push({
       text: item.querySelector('span').textContent,
       completed: item.classList.contains('completed')
     });
   });
   localStorage.setItem('tasks', JSON.stringify(data));
+  updateCounts();
 }
 
 function addTask() {
   var text = taskInput.value.trim();
-  if (text === '') {
-    alert('Please enter a task.');
-    return;
-  }
+  if (text === '') { alert('Please enter a task.'); return; }
   createTaskElement(text, false);
   taskInput.value = '';
   saveTasks();
@@ -60,6 +65,7 @@ function loadTasks() {
   tasks.forEach(function(task) {
     createTaskElement(task.text, task.completed);
   });
+  updateCounts();
 }
 
 loadTasks();
