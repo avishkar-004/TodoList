@@ -1,12 +1,37 @@
 var taskInput = document.getElementById('taskInput');
 var addBtn = document.getElementById('addBtn');
 var taskList = document.getElementById('taskList');
+var filterBtns = document.querySelectorAll('.filter-btn');
+var currentFilter = 'all';
 var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 addBtn.addEventListener('click', addTask);
 taskInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') addTask();
 });
+
+filterBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    filterBtns.forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    applyFilter();
+  });
+});
+
+function applyFilter() {
+  var items = taskList.querySelectorAll('.task');
+  items.forEach(function(item) {
+    var isCompleted = item.classList.contains('completed');
+    if (currentFilter === 'all') {
+      item.style.display = 'flex';
+    } else if (currentFilter === 'completed') {
+      item.style.display = isCompleted ? 'flex' : 'none';
+    } else {
+      item.style.display = isCompleted ? 'none' : 'flex';
+    }
+  });
+}
 
 function updateCounts() {
   var all = taskList.querySelectorAll('.task');
@@ -26,6 +51,7 @@ function saveTasks() {
   });
   localStorage.setItem('tasks', JSON.stringify(data));
   updateCounts();
+  applyFilter();
 }
 
 function addTask() {
