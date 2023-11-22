@@ -140,3 +140,40 @@ h1 {
   color: #fff;
   border-color: #5cb85c;
 }
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.btn-clear {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: #f0ad4e;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-clear:hover {
+  background: #ec971f;
+}
+
+.btn-danger {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: #d9534f;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-danger:hover {
+  background: #c9302c;
+}
