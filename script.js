@@ -2,6 +2,8 @@ var taskInput = document.getElementById('taskInput');
 var addBtn = document.getElementById('addBtn');
 var taskList = document.getElementById('taskList');
 var filterBtns = document.querySelectorAll('.filter-btn');
+var clearCompletedBtn = document.getElementById('clearCompleted');
+var clearAllBtn = document.getElementById('clearAll');
 var currentFilter = 'all';
 var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -19,17 +21,27 @@ filterBtns.forEach(function(btn) {
   });
 });
 
+clearCompletedBtn.addEventListener('click', function() {
+  taskList.querySelectorAll('.task.completed').forEach(function(item) {
+    item.remove();
+  });
+  saveTasks();
+});
+
+clearAllBtn.addEventListener('click', function() {
+  if (confirm('Are you sure you want to delete all tasks?')) {
+    taskList.innerHTML = '';
+    saveTasks();
+  }
+});
+
 function applyFilter() {
   var items = taskList.querySelectorAll('.task');
   items.forEach(function(item) {
     var isCompleted = item.classList.contains('completed');
-    if (currentFilter === 'all') {
-      item.style.display = 'flex';
-    } else if (currentFilter === 'completed') {
-      item.style.display = isCompleted ? 'flex' : 'none';
-    } else {
-      item.style.display = isCompleted ? 'none' : 'flex';
-    }
+    if (currentFilter === 'all') item.style.display = 'flex';
+    else if (currentFilter === 'completed') item.style.display = isCompleted ? 'flex' : 'none';
+    else item.style.display = isCompleted ? 'none' : 'flex';
   });
 }
 
@@ -60,6 +72,7 @@ function addTask() {
   createTaskElement(text, false);
   taskInput.value = '';
   saveTasks();
+  taskInput.focus();
 }
 
 function createTaskElement(text, completed) {
