@@ -22,9 +22,7 @@ filterBtns.forEach(function(btn) {
 });
 
 clearCompletedBtn.addEventListener('click', function() {
-  taskList.querySelectorAll('.task.completed').forEach(function(item) {
-    item.remove();
-  });
+  taskList.querySelectorAll('.task.completed').forEach(function(item) { item.remove(); });
   saveTasks();
 });
 
@@ -87,6 +85,17 @@ function createTaskElement(text, completed) {
     saveTasks();
   });
 
+  var editBtn = document.createElement('button');
+  editBtn.textContent = 'Edit';
+  editBtn.className = 'edit-btn';
+  editBtn.addEventListener('click', function() {
+    var newText = prompt('Edit task:', span.textContent);
+    if (newText !== null && newText.trim() !== '') {
+      span.textContent = newText.trim();
+      saveTasks();
+    }
+  });
+
   var deleteBtn = document.createElement('button');
   deleteBtn.textContent = 'Delete';
   deleteBtn.className = 'delete-btn';
@@ -95,8 +104,13 @@ function createTaskElement(text, completed) {
     saveTasks();
   });
 
+  var btnGroup = document.createElement('div');
+  btnGroup.className = 'btn-group';
+  btnGroup.appendChild(editBtn);
+  btnGroup.appendChild(deleteBtn);
+
   li.appendChild(span);
-  li.appendChild(deleteBtn);
+  li.appendChild(btnGroup);
   taskList.appendChild(li);
 }
 
