@@ -177,3 +177,22 @@ h1 {
 .btn-danger:hover {
   background: #c9302c;
 }
+
+.btn-group {
+  display: flex;
+  gap: 5px;
+}
+
+.edit-btn {
+  border: none;
+  background-color: #5bc0de;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #31b0d5;
+}
