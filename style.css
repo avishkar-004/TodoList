@@ -250,3 +250,30 @@ h1 {
     flex-direction: column;
   }
 }
+
+.dark-mode {
+  background-color: #1a1a2e;
+}
+
+.dark-mode .container {
+  background-color: #16213e;
+  color: #eee;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .task {
+  background-color: #0f3460;
+  border-color: #1a1a5e;
+  color: #eee;
+}
+
+.dark-mode .stats {
+  background: #0f3460;
+  color: #ccc;
+}
+
+.dark-mode input {
+  background: #16213e;
+  color: #eee;
+  border-color: #0f3460;
+}
