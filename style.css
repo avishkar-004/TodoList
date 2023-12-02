@@ -277,3 +277,28 @@ h1 {
   color: #eee;
   border-color: #0f3460;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.theme-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.theme-btn:hover {
+  background: #555;
+}
