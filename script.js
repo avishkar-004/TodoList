@@ -4,8 +4,23 @@ var taskList = document.getElementById('taskList');
 var filterBtns = document.querySelectorAll('.filter-btn');
 var clearCompletedBtn = document.getElementById('clearCompleted');
 var clearAllBtn = document.getElementById('clearAll');
+var themeToggle = document.getElementById('themeToggle');
 var currentFilter = 'all';
 var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+var isDark = localStorage.getItem('darkMode') === 'true';
+
+// Theme
+if (isDark) {
+  document.body.classList.add('dark-mode');
+  themeToggle.textContent = 'Light Mode';
+}
+
+themeToggle.addEventListener('click', function() {
+  isDark = !isDark;
+  document.body.classList.toggle('dark-mode');
+  themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  localStorage.setItem('darkMode', isDark);
+});
 
 addBtn.addEventListener('click', addTask);
 taskInput.addEventListener('keypress', function(e) {
