@@ -302,3 +302,27 @@ h1 {
 .theme-btn:hover {
   background: #555;
 }
+
+.dark-mode .filter-btn {
+  background: #0f3460;
+  color: #ccc;
+  border-color: #1a1a5e;
+}
+
+.dark-mode .filter-btn.active {
+  background: #5cb85c;
+  color: #fff;
+}
+
+.dark-mode .delete-btn {
+  background: #c0392b;
+}
+
+.dark-mode .edit-btn {
+  background: #2980b9;
+}
+
+.dark-mode .task.completed {
+  background-color: #1a3a1a;
+  border-color: #2a5a2a;
+}
