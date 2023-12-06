@@ -326,3 +326,22 @@ h1 {
   background-color: #1a3a1a;
   border-color: #2a5a2a;
 }
+
+.task-content {
+  flex: 1;
+  text-align: left;
+}
+
+.task-text {
+  display: block;
+  font-size: 16px;
+  word-break: break-word;
+  cursor: pointer;
+}
+
+.task-time {
+  display: block;
+  font-size: 11px;
+  color: #999;
+  margin-top: 3px;
+}
