@@ -345,3 +345,8 @@ h1 {
   color: #999;
   margin-top: 3px;
 }
+
+.task.dragging {
+  opacity: 0.5;
+  background: #e0e0e0;
+}
