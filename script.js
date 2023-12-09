@@ -140,3 +140,27 @@ function loadTasks() {
 }
 
 loadTasks();
+
+// Drag and drop reordering
+taskList.addEventListener('dragover', function(e) {
+  e.preventDefault();
+  var dragging = taskList.querySelector('.dragging');
+  var afterElement = getDragAfterElement(taskList, e.clientY);
+  if (afterElement == null) {
+    taskList.appendChild(dragging);
+  } else {
+    taskList.insertBefore(dragging, afterElement);
+  }
+});
+
+function getDragAfterElement(container, y) {
+  var elements = Array.from(container.querySelectorAll('.task:not(.dragging)'));
+  return elements.reduce(function(closest, child) {
+    var box = child.getBoundingClientRect();
+    var offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    }
+    return closest;
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
