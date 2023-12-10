@@ -86,6 +86,9 @@ function addTask() {
 function createTaskElement(text, completed, timestamp) {
   var li = document.createElement('li');
   li.className = 'task';
+  li.draggable = true;
+  li.addEventListener('dragstart', function() { li.classList.add('dragging'); });
+  li.addEventListener('dragend', function() { li.classList.remove('dragging'); saveTasks(); });
   if (completed) li.classList.add('completed');
 
   var content = document.createElement('div');
