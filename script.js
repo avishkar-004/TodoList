@@ -167,3 +167,17 @@ function getDragAfterElement(container, y) {
     return closest;
   }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
+
+// Search
+var searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', function() {
+  var query = searchInput.value.toLowerCase();
+  taskList.querySelectorAll('.task').forEach(function(item) {
+    var text = item.querySelector('.task-text').textContent.toLowerCase();
+    if (text.indexOf(query) !== -1) {
+      item.style.display = 'flex';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+});
