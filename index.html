@@ -4,10 +4,109 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .input-container, .login-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #5cb85c;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4cae4c;
+    }
+
+    #taskList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .task span {
+      flex: 1;
+      font-size: 16px;
+      word-break: break-word;
+    }
+
+    .task button {
+      border: none;
+      background-color: #d9534f;
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .task button:hover {
+      background-color: #c9302c;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="loginContainer">
+    <h1>Login</h1>
+    <div class="login-container">
+      <input type="password" id="passwordInput" placeholder="Enter password" />
+      <button id="loginButton">Login</button>
+    </div>
+  </div>
+
+  <div class="container" id="todoContainer" style="display: none;">
     <h1>To-Do List</h1>
     <div class="input-container">
       <input type="text" id="taskInput" placeholder="Add a new task..." />
@@ -15,6 +114,99 @@
     </div>
     <ul id="taskList"></ul>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    // Password for login
+    const PASSWORD = "avishkar";
+
+    // DOM Elements
+    const loginContainer = document.getElementById("loginContainer");
+    const todoContainer = document.getElementById("todoContainer");
+    const passwordInput = document.getElementById("passwordInput");
+    const loginButton = document.getElementById("loginButton");
+    const taskInput = document.getElementById("taskInput");
+    const addTaskButton = document.getElementById("addTaskButton");
+    const taskList = document.getElementById("taskList");
+
+    // Event Listener for Login
+    loginButton.addEventListener("click", () => {
+      const enteredPassword = passwordInput.value;
+      if (enteredPassword === PASSWORD) {
+        loginContainer.style.display = "none";
+        todoContainer.style.display = "block";
+        loadTasks(); // Load saved tasks
+      } else {
+        alert("Incorrect password. Try again.");
+      }
+    });
+
+    // Add a new task
+    addTaskButton.addEventListener("click", () => {
+      const taskText = taskInput.value.trim();
+      if (taskText === "") {
+        alert("Please enter a task.");
+        return;
+      }
+
+      const taskItem = document.createElement("li");
+      taskItem.className = "task";
+
+      const taskSpan = document.createElement("span");
+      taskSpan.textContent = taskText;
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", () => {
+        taskItem.remove();
+        saveTasks(); // Save tasks after deletion
+      });
+
+      taskItem.appendChild(taskSpan);
+      taskItem.appendChild(deleteButton);
+      taskList.appendChild(taskItem);
+
+      taskInput.value = "";
+      saveTasks(); // Save tasks after addition
+    });
+
+    // Save tasks to localStorage
+    function saveTasks() {
+      const tasks = [];
+      document.querySelectorAll(".task span").forEach((task) => {
+        tasks.push(task.textContent);
+      });
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    // Load tasks from localStorage
+    function loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks.forEach((taskText) => {
+        const taskItem = document.createElement("li");
+        taskItem.className = "task";
+
+        const taskSpan = document.createElement("span");
+        taskSpan.textContent = taskText;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+          taskItem.remove();
+          saveTasks(); // Save tasks after deletion
+        });
+
+        taskItem.appendChild(taskSpan);
+        taskItem.appendChild(deleteButton);
+        taskList.appendChild(taskItem);
+      });
+    }
+
+    // Add task with Enter key
+    taskInput.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        addTaskButton.click();
+      }
+    });
+  </script>
 </body>
 </html>
